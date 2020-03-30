@@ -61,7 +61,6 @@ exports.categorieUpdateRedirect = async function(req,res,next){
     })
     res.render('createCategorie.ejs',{update:true,cat : catToUpdate,message: messageEmpty})
 }
-//test commit
 exports.categorieUpdate = async function(req,res){
     await Categorie.findByIdAndUpdate({_id:catToUpdate._id},{name:req.body.nameU},function(err,col){
         if(err){
