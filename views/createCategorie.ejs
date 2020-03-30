@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Categorie</title>
+</head>
+<header>
+    <% include headerLogedIn %>
+</header>
+<body>
+    <% if(update) { %>
+        <div>
+            <h1 id="titre">Update Categorie</h1>
+            <form action="/categories//MVC/update/" method="POST" id="coll" name="coll">
+              <div>
+                    <label>Categorie Name:</label>
+                    <input type="text" class="form-control col-md-10"  name="nameU" value="<%= cat.name %>">
+                </div>
+                    <br />
+                <div class="form-group">
+                  <button class="btn btn-primary">Update Categorie</button>
+                </div>
+            </form>
+          </div>
+      <% } %>
+    <% if(!update) { %>
+    <div>
+        <h1 id="titre">Create Categorie</h1>
+        <form action="/categories/MVC/create" method="POST" id="coll" name="coll">
+          <div>
+                <label>Categorie Name:</label>
+                <input type="text" class="form-control col-md-10"  name="name">
+            </div>
+                <br />
+            <div class="form-group">
+              <button class="btn btn-primary">Add Categorie</button>
+            </div>
+        </form>
+      </div>
+    <% } %>
+</body>
+</html>
+
+  <style>
+  #titre {
+      font-weight: bold;
+      margin-top: 1%;
+      text-align: center;
+  }
+  
+  input{
+      width : 70%;
+      margin-left: 15%
+  }
+  #coll{
+      text-align: center;
+      font-family: serif
+  
+  }
+  
+  
+  </style>

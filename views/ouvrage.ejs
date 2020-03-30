@@ -1,0 +1,376 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<header>
+    <% include headerLogedIn %>
+</header>
+
+<body>
+    <% if(ouvrageList) { %>
+        <% if(ouvrageList.length == 0) { %>
+        <h1 style="text-align: center; position: relative; top: 250px;">You don't Have item Yet Please create One</h1>
+        <% } %>
+        <% } %>
+        <% for (let i = 0 ;  i < ouvrageList.length ; i++) { %>
+            <h3><%= ouvrageList[i].titre %></h3>
+            <h3><%= ouvrageList[i].auteur %></h3>
+            <h3><%= ouvrageList[i].prix %></h3>
+        <% } %>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+      </head>
+      <header>
+        <% include headerLogedIn %>
+    </header>
+<body>
+
+
+<div class="content">
+    <% if(ouvrageList) { %>
+        <% if(ouvrageList.length == 0) { %>
+        <h1 style="text-align: center; position: relative; top: 250px;">You don't Have item Yet Please create One</h1>
+        <% } %>
+        <% } %>
+    <% for (let i = 0 ;  i < ouvrageList.length ; i++) { %>
+    <div class="card" href="#!">
+      <div class="front" style="background-image: url(http://localhost:4000/uploads/livre.jpg);">
+
+        <% if(!ouvrageList[i].prix) { %>
+            <div class="messageBox">
+                <h1 id="construction">This Book is coming soon!</h1>
+              </div>
+            <% } %>
+        <p style="color: black;"><%= ouvrageList[i].titre%></p>
+      </div>
+      <div class="back">
+        <div>
+          <p name="auteur" id="auteur"> Written BY : 
+              </p>
+            <h1 name="auteurName" id="auteurName"><%= ouvrageList[i].auteur%></h1>
+          </p>
+
+          <% if(ouvrageList[i].prix) { %>
+          <p name="auteur" id="auteur"> Price : <%= ouvrageList[i].prix %></p>
+    </p>
+          <% } %>
+          <% if(!ouvrageList[i].prix) { %>
+            <p name="auteur" id="auteur"> Comming soon</p>
+      </p>
+            <% } %>
+          <a class="middle" name="mid" id="mid" href="/ouvrages/MVC/update/<%= ouvrageList[i]._id %>">
+            <img name="see" id="see"
+          src="/uploads//edit.png" />
+      </a>
+      <a class="middle" name="mid" id="mid" href="/ouvrages/MVC/delete/<%= i %>">
+        <img name="delete" id="delete"
+      src="/uploads//delete.png" />
+  </a>
+        </div>
+        
+      </div></div>
+      <% } %>
+  </div>
+</body>
+<footer>
+    <a href="/ouvrages/MVC/create" id="collection-button" name="collection-button"> 
+        <img style="max-width: 70px; max-height: 100px;" src="/uploads/add.png" /></a>
+</footer>
+</html>
+<style>
+.messageBox {
+  background: red;
+  padding-top: -50%;
+  opacity: .4;
+  border: #eee solid 2px;
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  width: 100%;
+  height: 12%;
+  /* margin-right: -50%; */
+  transform: translate(-50%, -50%);
+  text-shadow: 0px 0px 8px #000;
+  color: #fff;
+}
+
+#construction {
+  font-family: "Pacifico", cursive;
+  font-size: 15px;
+}
+
+
+
+
+       #see{
+        max-width: 50px; 
+        max-height: 50px; 
+        /* margin-right: px; */
+        /* float: center; position: absolute; 
+        margin-top: 100px; 
+        margin-left: -330px;  */
+    }
+
+    #delete{
+        max-width: 50px; 
+        max-height: 50px; 
+        margin-right: 10px;
+        /* float: center; position: absolute; 
+        margin-top: 100px; 
+        margin-left: -330px;  */
+    }
+    #titre{
+        text-transform: uppercase;
+        font-size: 30px;
+        color: black;
+        position: relative;
+        top: -100px;
+        font-family: "Arial Black";
+
+    }
+    #auteur{
+        font-size: 15px;
+        color: black;
+        position: relative;
+        top: -85px;
+        font-family: "Arial Black";
+
+        
+
+    }
+    #auteurName{
+        text-transform: uppercase;
+        font-size: 20px;
+        color: black;
+        position: relative;
+        top: -100px;
+        font-family: "Arial Black";
+        text-decoration: underline;
+
+    }
+ #collection-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+
+    }
+    #collection-button:hover {
+    zoom: 1.2;
+  }
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: #333;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #ecf0f9;
+  background-attachment: fixed;
+}
+
+.content {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+
+.heading {
+  width: 100%;
+  margin-left: 1rem;
+  font-weight: 900;
+  font-size: 1.618rem;
+  text-transform: uppercase;
+  letter-spacing: .1ch;
+  line-height: 1;
+  padding-bottom: .5em;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.heading:after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+  bottom: 0;
+}
+
+.description {
+  width: 100%;
+  margin-top: 0;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  color: inherit;
+  cursor: pointer;
+  width: calc(33% - 2rem);
+  min-width: calc(33% - 2rem);
+  height: 400px;
+  min-height: 400px;
+  perspective: 1000px;
+  margin: 1rem;
+  position: relative;
+}
+@media screen and (max-width: 800px) {
+  .card {
+    width: calc(50% - 2rem);
+  }
+}
+@media screen and (max-width: 500px) {
+  .card {
+    width: 100%;
+  }
+}
+
+.front,
+.back {
+  display: flex;
+  border-radius: 6px;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+}
+
+.front {
+  background-size: cover;
+  padding: 2rem;
+  font-size: 1.618rem;
+  font-weight: 600;
+  color: #fff;
+  overflow: hidden;
+  font-family: Poppins, sans-serif;
+}
+.front:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+  opacity: .25;
+  z-index: -1;
+}
+.card:hover .front {
+  transform: rotateY(180deg);
+}
+.card:nth-child(even):hover .front {
+  transform: rotateY(-180deg);
+}
+
+.back {
+  background: #fff;
+  transform: rotateY(-180deg);
+  padding: 0 2em;
+}
+.back .button {
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+}
+.back .button:before {
+  box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
+  background-color: rgba(26, 87, 230, 0.25);
+}
+.card:hover .back {
+  transform: rotateY(0deg);
+}
+.card:nth-child(even) .back {
+  transform: rotateY(180deg);
+}
+.card:nth-child(even) .back .button {
+  background: linear-gradient(135deg, #e61a80, #e61a3c);
+}
+.card:nth-child(even) .back .button:before {
+  box-shadow: 0 0 10px 10px rgba(230, 26, 60, 0.25);
+  background-color: rgba(230, 26, 60, 0.25);
+}
+.card:nth-child(even):hover .back {
+  transform: rotateY(0deg);
+}
+
+.button {
+  transform: translateZ(40px);
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  font-weight: bold;
+  color: #fff;
+  padding: .5em 1em;
+  border-radius: 100px;
+  font: inherit;
+  border: none;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 300ms ease;
+}
+.button:before {
+  transition: 300ms ease;
+  position: absolute;
+  display: block;
+  content: '';
+  transform: translateZ(-40px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  border-radius: 100px;
+  left: 10px;
+  top: 16px;
+}
+.button:hover {
+  transform: translateZ(55px);
+}
+.button:hover:before {
+  transform: translateZ(-55px);
+}
+.button:active {
+  transform: translateZ(20px);
+}
+.button:active:before {
+  transform: translateZ(-20px);
+  top: 12px;
+}
+</style>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<header>
+    <% include headerLogedIn %>
+</header>
+<body>
+    <% if(update) { %>
+        <div>
+            <h1 id="titre">Update Collection</h1>
+            <form action="/collections/MVC/collection/update" method="POST" id="coll" name="coll" enctype="multipart/form-data">
+              <div>
+                    <label>Collection Name:</label>
+                    <input type="text" class="form-control col-md-10"  name="nameU" value="<%= Col.name %>">
+                </div>
+                  <div>
+                      <label>Image Collection:</label>
+                      <input type="file" class="form-control col-md-10" name="CollectionFile" value="Col.collectionImage:"/>
+                      <br/>
+                  </div>
+                    <br />
+                <div class="form-group">
+                  <button class="btn btn-primary">Update Collection</button>
+                </div>
+            </form>
+          </div>
+
+        <% } %>
+        <% if(!update) { %>
+    <div>
+        <h1 id="titre">Create Collection</h1>
+        <form action="/collections/MVC/collection/create" method="POST" id="coll" name="coll" enctype="multipart/form-data">
+          <div>
+                <label>Collection Name:</label>
+                <input type="text" class="form-control col-md-10"  name="name">
+            </div>
+              <div>
+                  <label>Image Collection:</label>
+                  <input type="file" class="form-control col-md-10" name="CollectionFile"/>
+                  <br/>
+              </div>
+                <br />
+            <div class="form-group">
+              <button class="btn btn-primary">Add Collection</button>
+            </div>
+        </form>
+      </div>
+      <% } %>
+</body>
+</html>
+
+  <style>
+  #titre {
+      font-weight: bold;
+      margin-top: 1%;
+      text-align: center;
+  }
+  
+  input{
+      width : 70%;
+      margin-left: 15%
+  }
+  #coll{
+      text-align: center;
+      font-family: serif
+  
+  }
+  
+  
+  </style>

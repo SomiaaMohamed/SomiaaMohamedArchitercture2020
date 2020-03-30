@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+      </head>
+      <header>
+        <% include headerLogedIn %>
+    </header>
+<body>
+    <% if(update) { %>
+        <div class="container">
+            <form onsubmit="return envoie()" action="/ouvrages/MVC/update" method="POST" >
+              <div class="row">
+                <div class="col-25">
+                  <label for="titre">Titre * </label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="titre" name="titre" placeholder="Titre de l'ouvrage .." value="<%= ouv.titre %>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="auteur">Auteur * </label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="auteur" name="auteur" placeholder="Auteur Name .." value="<%= ouv.auteur %>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="prix">Prix (optionnel) </label>
+                </div>
+                <div class="col-75">
+                  <input type="number" id="prix" name="prix" placeholder="Prix .." step="0.01" value="<%= ouv.prix %>">
+                </div>
+              </div>
+              <div class="row">
+                <input type="submit" value="Submit">
+              </div>
+            </form>
+          </div>
+
+    <% } %>
+    <% if(!update) { %>
+    <div class="container">
+        <form onsubmit="return envoie()" action="/ouvrages/MVC/create" method="POST" >
+          <div class="row">
+            <div class="col-25">
+              <label for="titre">Titre * </label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="titre" name="titre" placeholder="Titre de l'ouvrage ..">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="auteur">Auteur * </label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="auteur" name="auteur" placeholder="Your last name..">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="prix">Prix (optionnel) </label>
+            </div>
+            <div class="col-75">
+              <input type="number" id="prix" name="prix" placeholder="Prix .." step="0.01">
+            </div>
+          </div>
+          <div class="row">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+      <% } %>
+</body>
+</html>
+
+<script>
+function envoie(){
+  var titre = document.getElementById('titre').value
+  var prix = document.getElementById('prix').value;
+  var auteur = document.getElementById('auteur').value
+  submitOK = true;
+ if (titre == ''){
+    document.getElementById('titre').style.background = 'red';
+    submitOK= false;
+  }
+  else {
+    document.getElementById('titre').style.background = 'white';
+  }
+if (auteur == ''){
+    document.getElementById('auteur').style.background = 'red';
+    submitOK = false;
+  }
+  else {
+    document.getElementById('auteur').style.background = 'white';
+  }
+  if(submitOK == false){
+    return false;
+  }
+}
+
+</script>
+
+<style>
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+</style>

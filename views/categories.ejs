@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<header>
+  <% include headerLogedIn %>
+</header>
+
+<body>
+  <div class="container">
+    <form class="form-inline md-form mr-auto mb-4" action="/categories/MVC/filter" method="POST" id="coll" name="coll">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="name">
+      <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+      <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Delete Filter</button>
+    </form>
+  <% if(categorieList) { %>
+  <% if(categorieList.length == 0) { %>
+  <h1 style="text-align: center; position: relative; top: 250px;"><%= message %></h1>
+  <% } %>
+  <% } %>
+    <div class="row">
+      <% for (let i = 0 ;  i < categorieList.length ; i++) { %>
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-image">
+            <img class="img-responsive" src='http://localhost:4000/uploads/Collection.jpg'>
+            <span class="card-title"><%= categorieList[i].name%></span>
+          </div>
+          <div class="card-action">
+            <a class="middle" name="mid" id="mid" href="/ouvrages/MVC/ouvrage/<%= categorieList[i]._id %>">
+              <img name="see" id="see" src="/uploads//see.png" />
+              <a class="middle" name="edit" id="edit" href="/categories/MVC/update/<%= categorieList[i]._id %>">
+                <img name="see" id="see" src="/uploads//edit.png" />
+              </a>
+              <a class="middle" name="edit" id="edit" href="/categories/MVC/delete/<%= i %>">
+                <img name="see" id="see" src="/uploads//delete.png" />
+              </a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+</body>
+<footer>
+  <a href="/categories/MVC/new" id="collection-button" name="collection-button">
+    <img style="max-width: 70px; max-height: 100px;" src="/uploads/add.png" /></a>
+</footer>
+
+</html>
+<style>
+  .card:hover {
+    opacity: .7;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.23);
+  }
+
+  .card:hover #see {
+    opacity: 1;
+  }
+
+  #mid:hover {
+    opacity: 1;
+  }
+
+  #see {
+    max-width: 50px;
+    max-height: 50px;
+    opacity: .0;
+  }
+
+  #collection-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+  }
+
+  #collection-button:hover {
+    zoom: 1.2;
+  }
+
+  .card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .card {
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-clip: padding-box;
+    min-height: 200px;
+    min-width: 200px;
+  }
+
+  .card span.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .card .card-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card .card-image img {
+    border-radius: 2px 2px 0 0;
+    background-clip: padding-box;
+    position: relative;
+    z-index: -1;
+  }
+
+  .card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px;
+  }
+
+  .card .card-content {
+    padding: 16px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+  }
+
+  .card .card-content p {
+    margin: 0;
+    color: inherit;
+  }
+
+  .card .card-content span.card-title {
+    line-height: 48px;
+  }
+
+  .card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 16px;
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  .card .card-action a {
+    color: black;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+
+  }
+
+  .card .card-action a:hover {
+    color: #ffd8a6;
+    text-decoration: none;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.23);
+  }
+</style>
