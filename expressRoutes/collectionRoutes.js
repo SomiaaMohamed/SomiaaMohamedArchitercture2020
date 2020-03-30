@@ -32,5 +32,4 @@ collections.get('/MVC/collection/delete/:idCol',collectionControllerMVC.collecti
 collections.get('/MVC/collection/update/:idCol',collectionControllerMVC.collectionUpdateRedirect)
 collections.post('/MVC/collection/update',upload.single('CollectionFile'),collectionControllerMVC.collectionUpdate)
 
-
 module.exports = collections;

@@ -4,7 +4,6 @@ const express = require('express'),
       cors = require('cors'),
       mongoose = require('mongoose'),
       config = require('./config/DB'),
-      itemRoutes = require('./expressRoutes/itemRoutes');
       Users = require('./expressRoutes/userRoutes');
       Collections = require('./expressRoutes/collectionRoutes')
       Categories = require('./expressRoutes/categorieRoutes')
@@ -21,7 +20,6 @@ const express = require('express'),
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({extended : false}));
       app.use(cors());
-      app.use("/items", itemRoutes);
       app.use("/users", Users);
       app.use("/collections",Collections);
       app.use('/uploads',express.static('uploads'));
