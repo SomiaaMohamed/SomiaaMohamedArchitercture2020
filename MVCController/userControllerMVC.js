@@ -8,9 +8,11 @@ var User = require('../models/user');
 process.env.SECRET_KEY = 'secret';
 let CurrentUser = new User() ;
 let currentToken = '';
+let message ='';
 
 exports.userLogin = function(req,res){
-    res.render('login.ejs');
+    message= "",
+    res.render('login.ejs',{message : message});;
 }
 
 
@@ -40,11 +42,13 @@ exports.userLoginSend = async function(req,res){
                 res.render('home.ejs',{token:token,first_name:user.first_name,last_name:user.last_name, email: user.email});
             }
             else{
-                res.status(400).json({error : "User does not exist"})
+                message =" user does not exist"
+                res.render('login.ejs',{message : message});
             }
         }
         else{
-            res.send("User does not exist")
+            message =" user does not exist"
+            res.render('login.ejs',{message : message});
         }
     })
     .catch(err => {
@@ -67,15 +71,16 @@ exports.userRegisterSend = async function(req,res){
                 userData.password = hash
                 User.create(userData)
                 .then(user => {
-                    // res.json({status : user.email + ' registred'})
-                    res.render('login.ejs')
+                    message="Registred",
+                    res.render('login.ejs',{message : message});;
                 })
                 .catch(err => {
                     res.send('error' + err)
                 })
             })
         }else{
-            res.json({error : "User already exists"})
+            message= "user already exist, try to login"
+            res.render('login.ejs',{message : message});;
         }
     }).catch(err => {
         res.send('error ' + err)

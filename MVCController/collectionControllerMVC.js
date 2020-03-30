@@ -25,22 +25,29 @@ exports.collectionDelete =  async function(req,res){
 }
  
 exports.collectionNewRedirect = function(req,res){
-    res.render('CreateCollection.ejs',{update:false})
+    message = ""
+    res.render('CreateCollection.ejs',{update:false,message:message})
 }
 
 exports.collectionCreate =  async function (req,res) {
-    const collectionData = {
-        name: req.body.name,
-        collectionImage: req.file.path,
+    if(!req.body.name || !req.file){
+        message = "name And image are required"
+        res.render('CreateCollection.ejs',{update:false,message:message})
     }
-    await Collection.create(collectionData, function(err, item){
-        if(err) res.json(err);
-        else{
-            collectionList.pop(res);
-            res.redirect('/collections/MVC/collection') ;
-
-        } 
-    });
+    else{
+        const collectionData = {
+            name: req.body.name,
+            collectionImage: req.file.path,
+        }
+        await Collection.create(collectionData, function(err, item){
+            if(err) res.json(err);
+            else{
+                collectionList.pop(res);
+                res.redirect('/collections/MVC/collection') ;
+    
+            } 
+        });
+    }
 } 
 exports.collectionUpdateRedirect =  async  function(req,res,next){
     await Collection.findById({_id: req.params.idCol},function(err,col) {
@@ -51,11 +58,16 @@ exports.collectionUpdateRedirect =  async  function(req,res,next){
             colToUpdate = col;
         }
     })
-    res.render('CreateCollection.ejs',{update:true,Col: colToUpdate})
+    message=""
+    res.render('CreateCollection.ejs',{message:message,update:true,Col: colToUpdate})
 }
 
 exports.collectionUpdate = async function(req,res){
-    if(req.file){
+    if(!req.body.nameU){
+        message="name can not be empty"
+        res.render('CreateCollection.ejs',{message:message,update:true,Col: colToUpdate})
+    }
+    else if(req.file){
         await Collection.findByIdAndUpdate({_id:colToUpdate._id},{name:req.body.nameU,collectionImage: req.file.path, },function(err,col){
             if(err){
                 console.log(err)
