@@ -6,7 +6,7 @@
     </head>
 </head>
 <header>
-    <% include headerLogedIn %>
+  <%- include('headerLogedin'); -%>
 </header>
     <% if (typeof token != "undefined") { %>
         <% var token = token %> 
@@ -36,7 +36,6 @@
       </table>
     </div>
   </div>
-
  <script>
           let token = <%- JSON.stringify(token) %>
           localStorage.setItem('usertoken', token);

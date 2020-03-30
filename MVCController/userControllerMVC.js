@@ -17,12 +17,12 @@ exports.userRegister = function(req,res){
     res.render('register2.ejs')
 }
 
-exports.userHome = function(req,res){
-    res.render('home.ejs',{token:currentToken,first_name:CurrentUser.first_name,last_name:CurrentUser.last_name, email: CurrentUser.email});
+exports.userHome =  function(req,res){
+     res.render('home.ejs',{token:currentToken,first_name:CurrentUser.first_name,last_name:CurrentUser.last_name, email: CurrentUser.email});
     // res.render('home.ejs')
 }
 exports.userLoginSend = async function(req,res){
-    User.findOne(
+    await User.findOne(
         { email :req.body.email})
     .then(user => {
         
