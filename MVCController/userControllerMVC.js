@@ -13,9 +13,6 @@ exports.userLogin = function(req,res){
     res.render('login.ejs');
 }
 
-exports.userRegister = function(req,res){
-    res.render('register2.ejs')
-}
 
 exports.userHome =  function(req,res){
      res.render('home.ejs',{token:currentToken,first_name:CurrentUser.first_name,last_name:CurrentUser.last_name, email: CurrentUser.email});

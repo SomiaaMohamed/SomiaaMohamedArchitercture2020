@@ -7,7 +7,6 @@ process.env.SECRET_KEY = 'secret';
 users.post("/register", userController.userRegister)
 users.post("/login", userController.userLogin)
 users.get("/MVC/login", userControllerMVC.userLogin)
-users.get("/MVC/register", userControllerMVC.userRegister)
 users.post("/MVC/loggedIn", userControllerMVC.userLoginSend)
 users.post("/MVC/register/send", userControllerMVC.userRegisterSend)
 users.get("/MVC/home",userControllerMVC.userHome)
