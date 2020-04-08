@@ -9,6 +9,18 @@ process.env.SECRET_KEY = 'secret';
 let CurrentUser = new User() ;
 let currentToken = '';
 let message ='';
+var validator = require('jsonschema').Validator;
+var v = new validator();
+var userSchema = {
+    type: 'object',
+    properties: {
+        first_name: { type: 'string'},
+        last_name: { type: 'string' },
+        email: {type: "string", "format": "email" },
+        password: { type: 'string' }
+      },
+      required: ['first_name','last_name','email','password']
+}
 
 exports.userLogin = function(req,res){
     message= "",
@@ -63,7 +75,12 @@ exports.userRegisterSend = async function(req,res){
         email : req.body.email,
         password : req.body.password
     } 
-    User.findOne({
+    if(v.validate(userData,userSchema).errors[0]){
+        message= "register failed please try again"
+        res.render('login.ejs',{message : message});
+    }
+    else{
+            User.findOne({
             email : req.body.email,
     }).then(user => {
         if(!user){
@@ -72,7 +89,7 @@ exports.userRegisterSend = async function(req,res){
                 User.create(userData)
                 .then(user => {
                     message="Registred",
-                    res.render('login.ejs',{message : message});;
+                    res.render('login.ejs',{message : message});
                 })
                 .catch(err => {
                     res.send('error' + err)
@@ -80,9 +97,33 @@ exports.userRegisterSend = async function(req,res){
             })
         }else{
             message= "user already exist, try to login"
-            res.render('login.ejs',{message : message});;
+            res.render('login.ejs',{message : message});
         }
     }).catch(err => {
         res.send('error ' + err)
     })
+    }
+    // console.log(v.validate(userData,userSchema))
+    // User.findOne({
+    //         email : req.body.email,
+    // }).then(user => {
+    //     if(!user){
+    //         bcrypt.hash(req.body.password, 10,(err,hash) => {
+    //             userData.password = hash
+    //             User.create(userData)
+    //             .then(user => {
+    //                 message="Registred",
+    //                 res.render('login.ejs',{message : message});
+    //             })
+    //             .catch(err => {
+    //                 res.send('error' + err)
+    //             })
+    //         })
+    //     }else{
+    //         message= "user already exist, try to login"
+    //         res.render('login.ejs',{message : message});
+    //     }
+    // }).catch(err => {
+    //     res.send('error ' + err)
+    // })
 }

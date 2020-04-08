@@ -22,18 +22,20 @@ exports.userRegister = function(req,res)  {
                 userData.password = hash
                 User.create(userData)
                 .then(user => {
-                    res.json( {registred : user.email + ' registred'})
+                    res.status(200).json( {registred : user.email + ' registred'})
+                    console.log(res)
                 })
                 .catch(err => {
-                    res.send('error' + err)
+                    res.status(400).send('error' + err)
                 })
             })
         }else{
-            res.json( "User already exists")
+            res.status(400).json({ error : "User already exists" })
+            console.log(res)
         }
     })
     .catch(err => {
-        res.send('error ' + err)
+        res.status(400).send('error ' + err)
     })
 }
 
@@ -50,16 +52,16 @@ exports.userLogin = async function(req,res){
                     email: user.email,
                 }
                 let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                    expiresIn : 1440
+                    expiresIn : 5440
                 })
-                res.send({ token : token})
+                res.status(200).send({ token : token})
             }
             else{
-                res.send({error : "User does not exist"})
+                res.status(400).send({error : "User does not exist"})
             }
         }
         else{
-            res.send("User does not exist")
+            res.status(400).send("User does not exist")
         }
     })
     .catch(err => {
@@ -67,3 +69,18 @@ exports.userLogin = async function(req,res){
     })
 }
 
+
+// [
+//     {
+//         "_id": "5e85d51310ad393230f0213a",
+//         "name": "Collection 2 ",
+//         "collectionImage": "uploads\\1585829139627-C1P3-schema-05-v11.png",
+//         "__v": 0
+//     },
+//     {
+//         "_id": "5e85d52310ad393230f0213b",
+//         "name": "Collection 1",
+//         "collectionImage": "uploads\\1585829155265-croisement-indonesienne.png",
+//         "__v": 0
+//     }
+// ]

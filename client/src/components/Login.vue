@@ -51,7 +51,7 @@ export default {
             console.log(res)
         }
       }).catch((err) => {
-         this.$alert(err)
+         this.$alert('User Does not exist')
          console.log(err)
       })
     },

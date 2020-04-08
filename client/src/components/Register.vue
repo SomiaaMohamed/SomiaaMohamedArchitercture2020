@@ -55,11 +55,8 @@ export default {
           router.push({ name: 'Login' })
 
         }
-        else{
-          this.$alert(res.data)
-        }
       }).catch((err) => {
-        console.log(err)
+        this.$alert("Failed")
       })
     }
   }

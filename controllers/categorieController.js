@@ -18,10 +18,10 @@ res.json({succes : true})
 exports.categorieGetAll = function(req,res) {
     Categorie.find(function(err,cat) {
         if(err){
-            console.log(err);
+            res.status(400).send({error: 'error'})
         }
         else{
-            res.json(cat)
+            res.status(200).json(cat)
         }
     })}
 exports.categoieDel = function(req,res){
@@ -43,10 +43,10 @@ exports.categoieDel = function(req,res){
 exports.categorieByCol = function(req,res) {
     Categorie.find({ collectionID : req.params.idCol})
     .then( cat => {
-        res.json(cat)
+        res.status(200).json({ categories: cat })
     })
     .catch(err => {
-        res.send("error : " + err)
+        res.status(400).send({error: err.message})
     })
 }
 
@@ -59,3 +59,4 @@ exports.categorieUpdate = async function(req,res){
         res.send("error : "+ err)
     })
 }
+

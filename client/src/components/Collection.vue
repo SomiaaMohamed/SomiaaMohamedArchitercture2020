@@ -30,6 +30,9 @@
         </div>
     </div>
     </div>
+    <div>
+      <button v-on:click="test()">test</button>
+      </div>
      <router-link to="/Createcollection">
          <footer>
     <a id="collection-button" name="collection-button">
@@ -56,9 +59,12 @@ export default {
   },
 
   methods: {
+    test(){
+      console.log(localStorage.getItem('usertoken'))
+    },
     fetchItems() {
       let uri = "http://localhost:4000/collections/getAll";
-      axios.get(uri).then(response => {
+      axios.get(uri,{headers:{'authorization': localStorage.getItem('usertoken')}}).then(response => {
         this.collections = response.data;
       });
     },
@@ -66,7 +72,7 @@ export default {
       this.$confirm("Are you sure?")
         .then(() => {
           axios
-            .delete("http://localhost:4000/collections/delete/" + id)
+            .delete("http://localhost:4000/collections/delete/" + id,{headers:{'authorization': localStorage.getItem('usertoken')}})
             .then(res => {
               this.$alert(res.data);
             });

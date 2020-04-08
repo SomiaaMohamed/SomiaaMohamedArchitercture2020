@@ -32,10 +32,10 @@ const upload = multer({
 exports.collectionGetAll = function(req,res) {
     Collection.find(function(err,col) {
         if(err){
-            console.log(err);
+            res.status(400).send(err)
         }
         else{
-            res.json(col)
+            res.status(200).json(col)
         }
     })
 }
@@ -46,43 +46,46 @@ exports.collectionCreate = function(req,res){
     }
     Collection.create(collectionData)
         .then(coll => {
-            res.json({ succes: true })
+            res.status(200).json({ succes: true })
         })
         .catch(err => {
-            res.send('error :' + err)
+            res.status(400).send({ error: err.message, succes: false })
         })
 }
 
 exports.collectionUpdate = function(req,res){
-    if(req.file){
+    if(req.file && req.body.name){
         Collection.findByIdAndUpdate({_id:req.params.idCol},{name:req.body.name,collectionImage: req.file.path})
         .then(col =>{
-            res.json(col)
+            res.status(200).json({ succes :true ,collection:col})
         })
         .catch(err =>{
-            res.send("error : "+ err)
+            res.status(400).send({ error: err.message, succes: false })
+        })
+    }
+    else if(req.body.name){
+        Collection.findByIdAndUpdate({_id:req.params.idCol},{name:req.body.name})
+        .then(col =>{
+            res.status(200).json({ succes :true ,collection:col})
+        })
+        .catch(err =>{
+            res.status(400).send({ error: err.message, succes: false })
         })
     }
     else{
-        Collection.findByIdAndUpdate({_id:req.params.idCol},{name:req.body.name})
-        .then(col =>{
-            res.json(col)
-        })
-        .catch(err =>{
-            res.send("error : "+ err)
-        })
+        res.status(400).send({succes:false,error: "path name is required"})
     }
 }
 
 exports.collectionDelOne = function(req,res){
     console.log(req.params.id)
         Collection.findByIdAndRemove({_id: req.params.id}, function(err, item){
-              if(err) res.json(err);
-              else res.json('Successfully removed');
+              if(err) res.status(400).send({ error: err.message, succes: false })
+              else res.status(200).json({succes:true, message: 'Successfully removed'});
           });
       };
 
-
+ 
     // itemRoutes.route('/delete/:id').get(function (req, res) {
     //     Item.findByIdAndRemove({_id: req.params.id}, function(err, item){
     //           if(err) res.json(err);
@@ -120,4 +123,8 @@ exports.collectionDelOne = function(req,res){
 // // })
 // }
 
+
+// {
+//     "err": "Collection validation failed: name: Path `name` is required."
+// }
 

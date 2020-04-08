@@ -5,7 +5,7 @@
     <form v-on:submit.prevent="updateCollection(collection._id,collection.name)" id="coll" name="coll">
       <div>
             <label>Collection Name:</label>
-            <input type="text" class="form-control col-md-10" name="name" :value="collection.name" @input="updateName" >
+            <input type="text" class="form-control col-md-10" name="name" :value="collection.name" @input="updateName" required>
         </div>
           <div>
               <label>Image Collection:</label>
@@ -60,7 +60,7 @@ import router from '../router'
         const fd = new FormData();
         fd.append('collectionImage', this.selectedFile, this.selectedFile.name)
         fd.append('name',this.name)
-        axios.post('http://localhost:4000/collections/add', fd).then((response) => {
+        axios.post('http://localhost:4000/collections/add', fd,{headers:{'authorization': localStorage.getItem('usertoken')}}).then((response) => {
           router.push({name : 'Collection'})
         })
     },
@@ -90,7 +90,7 @@ import router from '../router'
       else{
         fd.append('name',this.newText.target.value)
       }
-         axios.post('http://localhost:4000/collections/update/'+id, fd).then((response) => {
+         axios.post('http://localhost:4000/collections/update/'+id, fd,{headers:{'authorization': localStorage.getItem('usertoken')}}).then((response) => {
           router.push({name : 'Collection'})
         })
     }

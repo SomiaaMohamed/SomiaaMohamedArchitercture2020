@@ -5,6 +5,7 @@ var collectionController = require('../controllers/collectionControllers');
 var collectionControllerMVC = require('../MVCController/collectionControllerMVC')
 const multer = require('multer');
 process.env.SECRET_KEY = 'secret';
+const checkAuth = require('../middelware/check-auth')
 
 
 const storage = multer.diskStorage({
@@ -21,10 +22,10 @@ const upload = multer({
     storage: storage
 });
 
-collections.post('/update/:idCol',upload.single('collectionImage'),collectionController.collectionUpdate)
-collections.get("/getAll" ,collectionController.collectionGetAll );
-collections.delete("/delete/:id", collectionController.collectionDelOne);
-collections.post('/add', upload.single('collectionImage'),collectionController.collectionCreate);
+collections.post('/update/:idCol', checkAuth,upload.single('collectionImage') ,collectionController.collectionUpdate)
+collections.get("/getAll" , checkAuth, collectionController.collectionGetAll );
+collections.delete("/delete/:id", checkAuth, collectionController.collectionDelOne);
+collections.post('/add', checkAuth ,upload.single('collectionImage'),collectionController.collectionCreate);
 collections.post('/MVC/collection/create',upload.single('CollectionFile'), collectionControllerMVC.collectionCreate);
 collections.get('/MVC/collection/new',collectionControllerMVC.collectionNewRedirect)
 collections.get('/MVC/collection',collectionControllerMVC.collectionList);
