@@ -70,7 +70,7 @@ export default {
       let uri =
         "http://localhost:4000/categories/getOne/" + this.collection._id;
       axios.get(uri).then(response => {
-        this.categories = response.data;
+        this.categories = response.data.categories;
         console.log(this.categories);
       });
     },

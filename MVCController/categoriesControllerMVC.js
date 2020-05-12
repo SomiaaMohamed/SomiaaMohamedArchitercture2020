@@ -23,10 +23,17 @@ exports.categoriesFilter = function(req,res){
 }
 
 exports.categorieCreateRedirect = function(req,res){
-    res.render('createCategorie.ejs',{update: false})
+    message=""
+    res.render('createCategorie.ejs',{update: false, message:message})
 }
 
 exports.categorieCreate = async function(req,res){
+    let message =''
+    if(!req.body.name){
+        message="name can not be empty"
+        res.render('createCategorie.ejs',{update:false,message: message})
+    }
+    else {
     const catData = {
         name : req.body.name,
         collectionID : currentCollection
@@ -40,6 +47,7 @@ exports.categorieCreate = async function(req,res){
         } 
     });
 }
+}
 
 exports.categorieDelte = async function(req,res){
     let deleted = listCategorie.splice(req.params.idCat,1)
@@ -51,6 +59,7 @@ exports.categorieDelte = async function(req,res){
 }
 
 exports.categorieUpdateRedirect = async function(req,res,next){
+    let message =''
     await Categorie.findById({_id: req.params.idCat},function(err,col) {
         if(err){
             console.log(err);
@@ -59,9 +68,15 @@ exports.categorieUpdateRedirect = async function(req,res,next){
             catToUpdate = col;
         }
     })
-    res.render('createCategorie.ejs',{update:true,cat : catToUpdate,message: messageEmpty})
+    res.render('createCategorie.ejs',{update:true,cat : catToUpdate,message: message})
 }
 exports.categorieUpdate = async function(req,res){
+    let message =''
+    if(!req.body.nameU){
+        message="name can not be empty"
+        res.render('createCategorie.ejs',{update:true,cat : catToUpdate,message: message})
+    }
+    else{
     await Categorie.findByIdAndUpdate({_id:catToUpdate._id},{name:req.body.nameU},function(err,col){
         if(err){
             console.log(err)
@@ -70,4 +85,5 @@ exports.categorieUpdate = async function(req,res){
             res.redirect('/categories/MVC/categorie/'+ currentCollection) ;
         }
     })
+}
 }
