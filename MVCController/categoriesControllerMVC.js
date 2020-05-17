@@ -22,6 +22,17 @@ exports.categoriesFilter = function(req,res){
     res.render('categories.ejs', {categorieList: filtredList,message: 'No Item Found'})
 }
 
+exports.CancelFilter = async function(req,res){
+    await  Categorie.find({collectionID : currentCollection})
+    .then( cat  => {
+        listCategorie = cat
+        res.render('categories.ejs', {categorieList: listCategorie,message: "We dont have item yet"})
+    })
+    .catch(err =>{
+        res.send("error : " + err)
+    })
+}
+
 exports.categorieCreateRedirect = function(req,res){
     message=""
     res.render('createCategorie.ejs',{update: false, message:message})

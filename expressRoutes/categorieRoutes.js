@@ -17,5 +17,6 @@ categories.post('/MVC/create', categoriesControllerMVC.categorieCreate)
 categories.get('/MVC/delete/:idCat', categoriesControllerMVC.categorieDelte)
 categories.get('/MVC/update/:idCat', categoriesControllerMVC.categorieUpdateRedirect)
 categories.post('/MVC/filter', categoriesControllerMVC.categoriesFilter)
+categories.post('/MVC/Nonfilter', categoriesControllerMVC.CancelFilter)
 categories.post('/MVC/update/', categoriesControllerMVC.categorieUpdate)
 module.exports = categories;

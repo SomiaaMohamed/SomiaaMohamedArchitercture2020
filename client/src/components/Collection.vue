@@ -30,9 +30,6 @@
         </div>
     </div>
     </div>
-    <div>
-      <button v-on:click="test()">test</button>
-      </div>
      <router-link to="/Createcollection">
          <footer>
     <a id="collection-button" name="collection-button">

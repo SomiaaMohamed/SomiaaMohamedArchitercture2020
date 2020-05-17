@@ -2,7 +2,6 @@
   <div class="container">
            <div v-if="ouv">
     <h1 id="titre">Update Ouvrage</h1>
-     <button v-on:click="test(ouv)">testtt</button>
     <form v-on:submit.prevent="updateOuv"  id="coll" name="coll" >
        <div>
         <label>Title *</label>

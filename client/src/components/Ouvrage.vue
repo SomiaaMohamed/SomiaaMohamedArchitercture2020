@@ -5,10 +5,10 @@
     <span class="fa fa-search form-control-feedback"></span>
     <input type="text" class="form-control" v-model="search" placeholder="Search">
   </div>
-  <!-- <div v-if="filtredOuv.length == 0">
-    <img src="../assets//kim.jpg"/>
+  <div v-if="filtredOuv.length == 0">
+    <div> WE Don't Have ITEM</div>
 
-  </div> -->
+  </div>
       <div v-if="!filtredOuv.length == 0 " class="row">
     <div class="card" v-for="(ouv,index) in filtredOuv" :key="ouv._id">
       <div class="front" style="background-image: url(http://localhost:4000/uploads/livre.jpg);">

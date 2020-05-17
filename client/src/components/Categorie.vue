@@ -80,16 +80,18 @@ export default {
         {
           id: this.collection._id
         },
-        {
+         {
           draggable: true
         },
         {
-        'closed': (event) => { let uri =
+        'closed': (event) => { 
+          let uri =
         "http://localhost:4000/categories/getOne/" + this.collection._id;
       axios.get(uri).then(response => {
-        this.categories = response.data;
-        console.log(this.categories);
-      }); }
+        this.categories = response.data.categories;
+        console.log("je suis la");
+      }
+      ); }
         }
       );
     },
@@ -109,7 +111,7 @@ export default {
         'closed': (event) => { let uri =
         "http://localhost:4000/categories/getOne/" + this.collection._id;
       axios.get(uri).then(response => {
-        this.categories = response.data;
+        this.categories = response.data.categories;
         console.log(this.categories);
       }); }
         }
